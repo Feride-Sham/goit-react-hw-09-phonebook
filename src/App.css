@@ -1,0 +1,41 @@
+.App {
+  background-color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 400;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+}
+
+.App h1,
+h2 {
+  color: #b178b3;
+  margin: 0px 0px 50px 0px;
+}
+
+.App input {
+  cursor: pointer;
+
+  padding: 5px;
+  border-radius: 5px;
+  outline-color: #8cb416;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.App button {
+  padding: 5px;
+  font-weight: 700;
+  color: #787878;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 2px 3px 5px #f3a3f0;
+}
+
+.App button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #b178b3;
+  border: none;
+  transform: scale(1.09);
+}
