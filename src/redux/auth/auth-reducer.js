@@ -6,7 +6,6 @@ import {
   loginSuccess,
   loginError,
   logoutSuccess,
-  logoutError,
   getCurrentUserSuccess,
   getCurrentUserError,
 } from "./auth-actions";
@@ -31,14 +30,6 @@ const token = createReducer(null, {
   [logoutSuccess]: () => null,
 });
 
-const setError = (_, { payload }) => payload;
-
-const error = createReducer(null, {
-  [registrationError]: setError,
-  [loginError]: setError,
-  [logoutError]: setError,
-  [getCurrentUserError]: setError,
-});
 
 const isAuthenticated = createReducer(false, {
   [registrationSuccess]: () => true,
@@ -54,5 +45,4 @@ export default combineReducers({
   user,
   isAuthenticated,
   token,
-  error,
 });
