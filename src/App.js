@@ -40,10 +40,11 @@ class App extends Component {
             <Suspense fallback={<h1>Load..</h1>}>
               <Switch>
                 <PublicRoute exact path={routes.home} component={HomeView} />
-                <PrivateRoute
-                  path={routes.contacts}
-                  redirectTo={routes.login}
-                  component={ContactsView}
+                <PublicRoute
+                  path={routes.registration}
+                  restricted
+                  redirectTo={routes.contacts}
+                  component={RegistrationView}
                 />
                 <PublicRoute
                   path={routes.login}
@@ -51,11 +52,10 @@ class App extends Component {
                   redirectTo={routes.contacts}
                   component={LoginView}
                 />
-                <PublicRoute
-                  path={routes.registration}
-                  restricted
-                  redirectTo={routes.contacts}
-                  component={RegistrationView}
+                <PrivateRoute
+                  path={routes.contacts}
+                  redirectTo={routes.login}
+                  component={ContactsView}
                 />
               </Switch>
             </Suspense>
