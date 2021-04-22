@@ -25,8 +25,12 @@ export default function Filter() {
     </form>
   );
 }
+Filter.defaultProps = {
+  filterValue: "",
+  onToFilter: () => {},
+};
 
 Filter.propTypes = {
-  filterValue: PropTypes.string.isRequired,
-  onToFilter: PropTypes.func.isRequired,
+  filterValue: PropTypes.string,
+  onToFilter: PropTypes.func,
 };
