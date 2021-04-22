@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { contactsOperations, contactsSelectors } from "../../redux/contacts";
 
@@ -11,9 +11,9 @@ export default function ContactForm() {
   const contacts = useSelector(contactsSelectors.getAllContacts);
 
   // записывает данные введенные в форме
-  const handleInputChange = (ev) => {
+  const handleInputChange = useCallback((ev) => {
     const { name, value } = ev.currentTarget;
-    console.log(ev.currentTarget);
+
     switch (name) {
       case "name":
         setName(value);
@@ -24,23 +24,26 @@ export default function ContactForm() {
       default:
         console.error("Ooops");
     }
-  };
+  }, []);
 
   // отправляет данные введеные в форме
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
+  const handleSubmit = useCallback(
+    (ev) => {
+      ev.preventDefault();
 
-    const uniqueContact = contacts.find(
-      (item) => item.name.toLowerCase() === name.toLowerCase()
-    );
-    if (uniqueContact) {
-      alert(`${name} уже есть в списке ваших контактов`);
-      return;
-    }
+      const uniqueContact = contacts.find(
+        (item) => item.name.toLowerCase() === name.toLowerCase()
+      );
+      if (uniqueContact) {
+        alert(`${name} уже есть в списке ваших контактов`);
+        return;
+      }
 
-    dispatch(contactsOperations.addContact({ name, number }));
-    resetForm();
-  };
+      dispatch(contactsOperations.addContact({ name, number }));
+      resetForm();
+    },
+    [dispatch, name, number]
+  );
 
   // очищает форму после отправки
   const resetForm = () => {
