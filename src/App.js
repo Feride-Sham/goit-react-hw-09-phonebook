@@ -40,24 +40,26 @@ export default function App() {
         <Container>
           <Suspense fallback={<h1>Load..</h1>}>
             <Switch>
-              <PublicRoute exact path={routes.home} component={HomeView} />
+              <PublicRoute exact path={routes.home}>
+                <HomeView />
+              </PublicRoute>
               <PublicRoute
                 path={routes.registration}
                 restricted
                 redirectTo={routes.contacts}
-                component={RegistrationView}
-              />
+              >
+                <RegistrationView />
+              </PublicRoute>
               <PublicRoute
                 path={routes.login}
                 restricted
                 redirectTo={routes.contacts}
-                component={LoginView}
-              />
-              <PrivateRoute
-                path={routes.contacts}
-                redirectTo={routes.login}
-                component={ContactsView}
-              />
+              >
+                <LoginView />
+              </PublicRoute>
+              <PrivateRoute path={routes.contacts} redirectTo={routes.login}>
+                <ContactsView />
+              </PrivateRoute>
             </Switch>
           </Suspense>
         </Container>
