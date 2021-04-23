@@ -1,65 +1,64 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { authOperations } from "../../redux/auth";
 import s from "./Login.module.css";
-class Login extends Component {
-  state = {
-    email: "",
-    password: "",
-  };
 
-  handleSubmit = (ev) => {
+export default function Login() {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (ev) => {
     ev.preventDefault();
-    this.props.onLogin(this.state);
-    this.setState({ name: "", email: "", password: "" });
+
+    dispatch(authOperations.login({ email, password }));
+
+    setEmail("");
+    setPassword("");
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case "email":
+        setEmail(value);
+        break;
+      case "password":
+        setPassword(value);
+        break;
+      default:
+        console.error("Ooops");
+    }
   };
 
-  render() {
-    const { email, password } = this.state;
-    return (
-      <div>
-        <h1>Enter your login</h1>
-        <form
-          onSubmit={this.handleSubmit}
-          autoComplete="off"
-          className={s.formBox}
-        >
-          <label className={s.formLabel}>
-            <span className={s.formSpan}>Email</span>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={this.handleChange}
-              className={s.formInput}
-            />
-          </label>
-          <label className={s.formLabel}>
-            <span className={s.formSpan}>Password</span>
+  return (
+    <div>
+      <h1>Enter your login</h1>
+      <form onSubmit={handleSubmit} autoComplete="off" className={s.formBox}>
+        <label className={s.formLabel}>
+          <span className={s.formSpan}>Email</span>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            className={s.formInput}
+          />
+        </label>
+        <label className={s.formLabel}>
+          <span className={s.formSpan}>Password</span>
 
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
-              className={s.formInput}
-            />
-          </label>
-          <button type="submit" className={s.formBtn}>
-            Login
-          </button>
-        </form>
-      </div>
-    );
-  }
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            className={s.formInput}
+          />
+        </label>
+        <button type="submit" className={s.formBtn}>
+          Login
+        </button>
+      </form>
+    </div>
+  );
 }
-
-const mapDispatchToProps = {
-  onLogin: authOperations.login,
-};
-
-export default connect(null, mapDispatchToProps)(Login);
